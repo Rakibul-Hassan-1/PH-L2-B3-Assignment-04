@@ -1,6 +1,6 @@
-const express = require('express');
-const cors = require('cors');
-const axios = require('axios');
+import axios from 'axios';
+import cors from 'cors';
+import express from 'express';
 
 const app = express();
 const PORT = 5000;
@@ -10,7 +10,14 @@ const PRODUCTION_API = 'https://ph-l2-b3-assignment-03.vercel.app';
 
 // Middleware
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:5173', 'http://localhost:5174'],
+  origin: [
+    'http://localhost:3000', 
+    'http://localhost:5173', 
+    'https://library-management-system-aw8zksc9t-rakibul-hassan-1s-projects.vercel.app',
+    'https://library-management-system-ll49dercj-rakibul-hassan-1s-projects.vercel.app',
+    'https://library-management-system-two-nu.vercel.app',
+    'https://library-management-system-nxm7gb2ka-rakibul-hassan-1s-projects.vercel.app'
+  ],
   credentials: true
 }));
 app.use(express.json({ limit: '10mb' }));

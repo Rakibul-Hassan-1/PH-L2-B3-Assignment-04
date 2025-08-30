@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import { BookOpen, Plus, List, BarChart3 } from "lucide-react";
 import { ThemeToggle } from "../theme-toggle";
 

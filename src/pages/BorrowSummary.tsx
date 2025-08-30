@@ -1,8 +1,8 @@
+import { BarChart3, BookOpen, Copy, Hash, TrendingUp } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Button } from '../components/ui/button';
 import { useGetBorrowSummaryQuery } from '../services/api';
 import type { BorrowSummaryData } from '../types';
-import { Button } from '../components/ui/button';
-import { BookOpen, BarChart3, Hash, Copy, TrendingUp } from 'lucide-react';
-import { Link } from 'react-router';
 
 const BorrowSummary = () => {
   const { data: summaryResponse, isLoading, error } = useGetBorrowSummaryQuery();

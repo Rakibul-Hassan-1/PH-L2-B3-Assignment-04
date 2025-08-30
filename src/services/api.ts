@@ -9,11 +9,20 @@ import type {
   UpdateBookData
 } from '../types';
 
-// Base API configuration with local backend proxy
+// Base API configuration
+const isDevelopment = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+
+// For production, use a CORS proxy to avoid CORS issues
+const baseUrl = isDevelopment 
+  ? 'http://localhost:5000' 
+  : 'https://cors-anywhere.herokuapp.com/https://ph-l2-b3-assignment-03.vercel.app';
+
+
+
 export const api = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:5000',
+    baseUrl,
     prepareHeaders: (headers) => {
       headers.set('Content-Type', 'application/json');
       headers.set('Accept', 'application/json');
@@ -21,7 +30,7 @@ export const api = createApi({
     },
     mode: 'cors',
     credentials: 'omit',
-    timeout: 15000,
+    timeout: 30000,
   }),
   tagTypes: ['Book', 'Borrow'],
   endpoints: (builder) => ({

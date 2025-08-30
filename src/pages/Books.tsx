@@ -57,9 +57,22 @@ const Books: React.FC = () => {
   }
 
   if (error) {
+    console.error('Books API Error:', error);
+    
     return (
-      <div className="flex justify-center items-center min-h-screen">
-        <div className="text-xl text-red-600">Error Loading Books Please try again later.</div>
+      <div className="flex flex-col justify-center items-center min-h-screen p-4">
+        <div className="text-xl text-red-600 mb-4">Error Loading Books</div>
+        <div className="text-sm text-muted-foreground mb-4">
+          {'status' in error && error.status === 'FETCH_ERROR'
+            ? 'Network error - unable to connect to the server'
+            : 'data' in error && error.data && typeof error.data === 'object' && 'message' in error.data
+            ? String(error.data.message)
+            : 'Please try again later.'
+          }
+        </div>
+        <Button onClick={() => refetch()} variant="outline">
+          Retry
+        </Button>
       </div>
     );
   }

@@ -1,7 +1,7 @@
-import { useParams, Link } from 'react-router';
-import { useGetBookByIdQuery } from '../services/api';
+import { ArrowLeft, BookOpen, Calendar, CheckCircle, Copy, Edit, Hash, Tag, User, XCircle } from 'lucide-react';
+import { Link, useParams } from 'react-router-dom';
 import { Button } from '../components/ui/button';
-import { ArrowLeft, Edit, BookOpen, Calendar, Hash, User, Tag, Copy, CheckCircle, XCircle } from 'lucide-react';
+import { useGetBookByIdQuery } from '../services/api';
 
 const BookDetail = () => {
   const { id } = useParams<{ id: string }>();
