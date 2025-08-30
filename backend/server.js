@@ -3,7 +3,7 @@ import cors from 'cors';
 import express from 'express';
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 // Production API base URL
 const PRODUCTION_API = 'https://ph-l2-b3-assignment-03.vercel.app';
@@ -13,12 +13,17 @@ app.use(cors({
   origin: [
     'http://localhost:3000', 
     'http://localhost:5173', 
+    'http://localhost:4173', // Vite preview port
     'https://library-management-system-aw8zksc9t-rakibul-hassan-1s-projects.vercel.app',
     'https://library-management-system-ll49dercj-rakibul-hassan-1s-projects.vercel.app',
     'https://library-management-system-two-nu.vercel.app',
-    'https://library-management-system-nxm7gb2ka-rakibul-hassan-1s-projects.vercel.app'
+    'https://library-management-system-nxm7gb2ka-rakibul-hassan-1s-projects.vercel.app',
+    'https://library-management-system-cba39r58w-rakibul-hassan-1s-projects.vercel.app', // Current production URL
+    'https://library-management-system-5j6wgxvkr-rakibul-hassan-1s-projects.vercel.app'  // Current preview URL
   ],
-  credentials: true
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Accept']
 }));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));

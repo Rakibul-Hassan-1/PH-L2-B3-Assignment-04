@@ -9,15 +9,20 @@ import type {
   UpdateBookData
 } from '../types';
 
-// Base API configuration
-const isDevelopment = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+// Base API configuration with fallback options
+const getBaseUrl = () => {
+  const hostname = window.location.hostname;
+  
+  // Development environment
+  if (hostname === 'localhost' || hostname === '127.0.0.1') {
+    return 'http://localhost:5000';
+  }
+  
+  // Production environment - use the working API directly
+  return 'https://ph-l2-b3-assignment-03.vercel.app';
+};
 
-// For production, use a CORS proxy to avoid CORS issues
-const baseUrl = isDevelopment 
-  ? 'http://localhost:5000' 
-  : 'https://cors-anywhere.herokuapp.com/https://ph-l2-b3-assignment-03.vercel.app';
-
-
+const baseUrl = getBaseUrl();
 
 export const api = createApi({
   reducerPath: 'api',
@@ -26,6 +31,10 @@ export const api = createApi({
     prepareHeaders: (headers) => {
       headers.set('Content-Type', 'application/json');
       headers.set('Accept', 'application/json');
+      // Add CORS headers for production
+      if (baseUrl.includes('vercel.app')) {
+        headers.set('Origin', window.location.origin);
+      }
       return headers;
     },
     mode: 'cors',
