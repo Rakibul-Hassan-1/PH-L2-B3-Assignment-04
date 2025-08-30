@@ -1,135 +1,255 @@
-## Assignment--Shad-CN
+# 📚 Library Management System
 
-## Installation Steps for Shadcn UI in Vite + React Project
+A complete full-stack Library Management System built with React, Redux Toolkit Query, TypeScript, Express.js, and MongoDB. This system provides comprehensive book management, borrowing functionality, and real-time data aggregation.
 
-### Create Project
+## ✨ Features
 
-Start by creating a new React project using Vite with TypeScript template:
+### 🎯 Core Functionality
+- **Book Management**: Full CRUD operations for books
+- **Borrowing System**: Track book borrowing with business logic
+- **Real-time Updates**: Instant UI updates using RTK Query
+- **Data Aggregation**: MongoDB aggregation pipeline for borrowing summaries
+- **Responsive Design**: Mobile-first, fully responsive UI
+
+### 🔧 Technical Features
+- **Type Safety**: Full TypeScript implementation
+- **State Management**: Redux Toolkit with RTK Query
+- **API Integration**: RESTful API with proper error handling
+- **Database**: MongoDB with Mongoose ODM
+- **Validation**: Comprehensive form and data validation
+- **Security**: Rate limiting, CORS, and input sanitization
+
+## 🛠️ Tech Stack
+
+### Frontend
+- **React 19** with TypeScript
+- **Redux Toolkit** for state management
+- **RTK Query** for API calls and caching
+- **Tailwind CSS** for styling
+- **React Router** for navigation
+- **Lucide React** for icons
+
+### Backend
+- **Node.js** with Express.js
+- **TypeScript** for type safety
+- **MongoDB** with Mongoose ODM
+- **Mongoose** middleware and validation
+- **Aggregation Pipeline** for complex queries
+
+## 🚀 Quick Start
+
+### Prerequisites
+- Node.js (v16 or higher)
+- MongoDB (local or cloud instance)
+- npm or yarn
+
+### 1. Clone the Repository
+```bash
+git clone <repository-url>
+cd library-management-system
+```
+
+### 2. Backend Setup
+```bash
+cd backend
+npm install
+cp env.example .env
+```
+
+Update `.env` with your configuration:
+```env
+PORT=5000
+MONGODB_URI=mongodb://localhost:27017/library_management
+NODE_ENV=development
+```
 
 ```bash
-npm create vite@latest
+npm run dev
 ```
 
-### Installation Steps
+### 3. Frontend Setup
+```bash
+cd ../
+npm install
+npm run dev
+```
 
-1. **Install Tailwind CSS**
+### 4. Access the Application
+- Frontend: http://localhost:5173
+- Backend API: http://localhost:5000
 
-   ```bash
-   npm install tailwindcss @tailwindcss/vite
-   npm install -D @types/node
-   ```
+## 📖 API Endpoints
 
-2. **Update src/index.css**
-   Replace everything in `src/index.css` with:
+### Books
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/api/books` | Create a new book |
+| `GET` | `/api/books` | Get all books (with filtering, sorting, pagination) |
+| `GET` | `/api/books/:id` | Get book by ID |
+| `PUT` | `/api/books/:id` | Update book |
+| `DELETE` | `/api/books/:id` | Delete book |
 
-   ```css
-   @import "tailwindcss";
-   ```
+### Borrowing
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/api/borrow` | Borrow a book |
+| `GET` | `/api/borrow` | Get borrowed books summary (aggregation) |
+| `GET` | `/api/borrow/all` | Get all borrow records |
 
-3. **Configure TypeScript**
-   Update your `tsconfig.json`:
+## 🎨 UI Components
 
-   ```json
-   {
-     "files": [],
-     "references": [
-       {
-         "path": "./tsconfig.app.json"
-       },
-       {
-         "path": "./tsconfig.node.json"
-       }
-     ],
-     "compilerOptions": {
-       "baseUrl": ".",
-       "paths": {
-         "@/*": ["./src/*"]
-       }
-     }
-   }
-   ```
+### Pages
+- **Books**: Main book listing with filtering, sorting, and pagination
+- **Create Book**: Form to add new books
+- **Edit Book**: Update existing book information
+- **Book Detail**: Comprehensive book information view
+- **Borrow Book**: Borrow books with validation
+- **Borrow Summary**: Aggregated borrowing statistics
 
-   Update your `tsconfig.app.json`:
+### Features
+- **Responsive Design**: Mobile-first approach
+- **Modern UI**: Clean, intuitive interface
+- **Real-time Updates**: Instant data synchronization
+- **Error Handling**: User-friendly error messages
+- **Loading States**: Smooth loading experiences
 
-   ```json
-   {
-     "compilerOptions": {
-       "baseUrl": ".",
-       "paths": {
-         "@/*": ["./src/*"]
-       }
-     }
-   }
-   ```
+## 🔒 Business Logic
 
-4. **Update vite.config.ts**
+### Book Management
+- **Availability Control**: Automatic status updates based on copies
+- **ISBN Validation**: Unique ISBN enforcement
+- **Genre Restrictions**: Predefined genre categories
+- **Copy Management**: Non-negative copy validation
 
-   ```typescript
-   import path from "path";
-   import tailwindcss from "@tailwindcss/vite";
-   import react from "@vitejs/plugin-react";
-   import { defineConfig } from "vite";
+### Borrowing System
+- **Quantity Validation**: Cannot exceed available copies
+- **Due Date Enforcement**: Future date validation
+- **Automatic Updates**: Book availability updates on borrow
+- **Data Integrity**: Pre-save validation
 
-   export default defineConfig({
-     plugins: [react(), tailwindcss()],
-     resolve: {
-       alias: {
-         "@": path.resolve(__dirname, "./src"),
-       },
-     },
-   });
-   ```
+## 📊 Data Models
 
-5. **Add Shadcn CLI**
-
-   ```bash
-   npx shadcn@latest init
-   ```
-
-   When prompted, configure your settings. For the base color, you can choose 'Neutral' or any other color you prefer.
-
-6. **Update vite.config.ts**
-   Add this configuration to handle path aliases:
-
-   ```ts
-   import path from "path";
-   import react from "@vitejs/plugin-react";
-   import { defineConfig } from "vite";
-
-   export default defineConfig({
-     plugins: [react()],
-     resolve: {
-       alias: {
-         "@": path.resolve(__dirname, "./src"),
-       },
-     },
-   });
-   ```
-
-7. **Add Components**
-   You can now add any component from Shadcn UI using the CLI:
-   ```bash
-   npx shadcn-ui@latest add button
-   ```
-
-## Usage Example
-
-Here's how to use a component in your app:
-
-```tsx
-import { Button } from "@/components/ui/button";
-
-function App() {
-  return (
-    <div className="flex min-h-svh flex-col items-center justify-center">
-      <Button>Click me</Button>
-    </div>
-  );
+### Book Schema
+```typescript
+{
+  title: string;           // Required, max 200 chars
+  author: string;          // Required, max 100 chars
+  genre: string;           // Required, enum values
+  isbn: string;            // Required, unique, 10-17 digits
+  description?: string;    // Optional, max 1000 chars
+  copies: number;          // Required, non-negative integer
+  available: boolean;      // Auto-calculated based on copies
+  createdAt: Date;         // Auto-generated
+  updatedAt: Date;         // Auto-updated
 }
-
-export default App;
 ```
 
-## Available Components
+### Borrow Schema
+```typescript
+{
+  book: ObjectId;          // Reference to Book
+  quantity: number;        // Required, positive integer
+  dueDate: Date;           // Required, future date
+  createdAt: Date;         // Auto-generated
+  updatedAt: Date;         // Auto-updated
+}
+```
 
-Visit [Shadcn UI Components](https://ui.shadcn.com/docs/components) to see all available components and their documentation."
+## 🚀 Advanced Features
+
+### MongoDB Aggregation
+- **Real-time Statistics**: Live borrowing summaries
+- **Data Grouping**: Books grouped by borrowing activity
+- **Performance Optimization**: Indexed queries for fast results
+
+### RTK Query Integration
+- **Automatic Caching**: Intelligent data caching
+- **Optimistic Updates**: Instant UI feedback
+- **Background Refetching**: Always fresh data
+- **Error Handling**: Graceful error management
+
+## 🔧 Development
+
+### Scripts
+```bash
+# Backend
+npm run dev          # Start development server
+npm run build        # Build for production
+npm start            # Start production server
+
+# Frontend
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run preview      # Preview production build
+```
+
+### Environment Variables
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `PORT` | Backend server port | 5000 |
+| `MONGODB_URI` | MongoDB connection string | localhost:27017/library_management |
+| `NODE_ENV` | Environment mode | development |
+
+## 📱 Responsive Design
+
+The application is fully responsive and optimized for:
+- **Mobile**: 320px and up
+- **Tablet**: 768px and up
+- **Desktop**: 1024px and up
+- **Large Screens**: 1280px and up
+
+## 🧪 Testing
+
+```bash
+# Backend tests
+npm test
+
+# Frontend tests (when implemented)
+npm run test
+```
+
+## 🚀 Deployment
+
+### Backend Deployment
+1. Build the application: `npm run build`
+2. Set production environment variables
+3. Deploy to your preferred hosting service
+
+### Frontend Deployment
+1. Build the application: `npm run build`
+2. Deploy the `dist` folder to your hosting service
+3. Update API base URL for production
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
+
+## 📝 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 🆘 Support
+
+For support and questions:
+- Open an issue in the repository
+- Check the documentation
+- Review the code examples
+
+## 🔮 Future Enhancements
+
+- [ ] User authentication and authorization
+- [ ] Advanced search and filtering
+- [ ] Book return functionality
+- [ ] Email notifications
+- [ ] Mobile app
+- [ ] Advanced reporting
+- [ ] Book recommendations
+- [ ] Integration with external book APIs
+
+---
+
+**Built with ❤️ using modern web technologies**
